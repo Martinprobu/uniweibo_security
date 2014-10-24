@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.uniweibo.privileges.dao.mapper.UserBlockMapper">
+
+	<resultMap id="userBlockResultMap" type="com.uniweibo.privileges.pojo.UserBlock">
+		<id property="id" column="id"/>
+		<result property="uId" column="u_id"/>
+		<result property="reId" column="re_id"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="isDeleted" column="is_deleted"/>
+	</resultMap>
+
+	<insert id="insertUserBlock">
+		insert into user_block (
+			u_id,
+			re_id,
+			create_time,
+			update_time,
+			is_deleted
+		)
+		values (
+			#{uId},
+			#{reId},
+			#{createTime},
+			#{updateTime},
+			#{isDeleted}
+		)
+	</insert>
+
+	<update id="updateUserBlock">
+		update 
+			user_block
+		set
+			u_id = #{uId},
+			re_id = #{reId},
+			create_time = #{createTime},
+			update_time = #{updateTime},
+			is_deleted = #{isDeleted}
+		where
+			id = #{id}
+	</update>
+
+	<delete id="removeUserBlock">
+		delete from user_block where id = #{id} 
+	</delete>
+
+	<select id="getUserBlock" resultMap="userBlockResultMap">
+		select * from user_block where id = #{id}
+	</select>
+
+	<select id="listUserBlock" resultMap="userBlockResultMap">
+		select * from user_block
+	</select>
+
+	<select id="pagingUserBlock" resultMap="userBlockResultMap">
+		select * from user_block limit #{offset}, #{number}
+	</select>
+
+	<select id="listUserBlockCount" resultType="int">
+		select count(1) from user_block
+	</select>
+
+
+</mapper>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.uniweibo.privileges.dao.mapper.UsersMapper">
+
+	<resultMap id="usersResultMap" type="com.uniweibo.privileges.pojo.Users">
+		<id property="id" column="id"/>
+		<result property="uId" column="u_id"/>
+		<result property="name" column="name"/>
+		<result property="password" column="password"/>
+		<result property="detail" column="detail"/>
+		<result property="createTime" column="create_time" jdbcType="TIMESTAMP"  javaType="java.sql.Timestamp" />
+		<result property="updateTime" column="update_time" jdbcType="TIMESTAMP"  javaType="java.sql.Timestamp" />
+		<result property="isDeleted" column="is_deleted"/>
+	</resultMap>
+
+	<insert id="insertUsers">
+		insert into users (
+			u_id,
+			name,
+			password,
+			detail,
+			create_time,
+			update_time,
+			is_deleted
+		)
+		values (
+			#{uId},
+			#{name},
+			#{password},
+			#{detail},
+			#{createTime},
+			#{updateTime},
+			#{isDeleted}
+		)
+	</insert>
+
+	<update id="updateUsers">
+		update 
+			users
+		set
+			u_id = #{uId},
+			name = #{name},
+			password = #{password},
+			detail = #{detail},
+			create_time = #{createTime},
+			update_time = #{updateTime},
+			is_deleted = #{isDeleted}
+		where
+			id = #{id}
+	</update>
+
+	<delete id="removeUsers">
+		delete from users where id = #{id} 
+	</delete>
+
+	<select id="getUsers" resultMap="usersResultMap">
+		select * from users where u_id = #{id}
+	</select>
+
+	<select id="listUsers" resultMap="usersResultMap">
+		select * from users
+	</select>
+
+	<select id="pagingUsers" resultMap="usersResultMap">
+		select * from users limit #{offset}, #{number}
+	</select>
+
+	<select id="listUsersCount" resultType="int">
+		select count(1) from users
+	</select>
+
+
+</mapper>

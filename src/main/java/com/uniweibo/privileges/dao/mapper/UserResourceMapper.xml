@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.uniweibo.privileges.dao.mapper.UserResourceMapper">
+
+	<resultMap id="userResourceResultMap" type="com.uniweibo.privileges.pojo.UserResource">
+		<id property="id" column="id"/>
+		<result property="uId" column="u_id"/>
+		<result property="reId" column="re_id"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="isDeleted" column="is_deleted"/>
+	</resultMap>
+
+	<insert id="insertUserResource">
+		insert into user_resource (
+			u_id,
+			re_id,
+			create_time,
+			update_time,
+			is_deleted
+		)
+		values (
+			#{uId},
+			#{reId},
+			#{createTime},
+			#{updateTime},
+			#{isDeleted}
+		)
+	</insert>
+
+	<update id="updateUserResource">
+		update 
+			user_resource
+		set
+			u_id = #{uId},
+			re_id = #{reId},
+			create_time = #{createTime},
+			update_time = #{updateTime},
+			is_deleted = #{isDeleted}
+		where
+			id = #{id}
+	</update>
+
+	<delete id="removeUserResource">
+		delete from user_resource where id = #{id} 
+	</delete>
+
+	<select id="getUserResource" resultMap="userResourceResultMap">
+		select * from user_resource where id = #{id}
+	</select>
+
+	<select id="listUserResource" resultMap="userResourceResultMap">
+		select * from user_resource
+	</select>
+
+	<select id="pagingUserResource" resultMap="userResourceResultMap">
+		select * from user_resource limit #{offset}, #{number}
+	</select>
+
+	<select id="listUserResourceCount" resultType="int">
+		select count(1) from user_resource
+	</select>
+
+
+</mapper>

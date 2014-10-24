@@ -1,0 +1,43 @@
+#@desc 权限模块redis 测试数据
+#ro代表role,re代表resource,u代表user,bl代表block
+#uro:11011 list集合(rore:加上roid)	#user_role用户角色表,这里的'11011'代表uid
+#rore:1 	set集合(url资源)	#role_resource角色资源表,这里的'1'代表roid
+#ure:11011 set集合(url资源)	#user_resource用户资源表,这里的'11011'代表uid
+#ubl:11011 set集合(url资源)	#user_block用户资源reject表,这里的'11011'代表uid
+
+#init data
+#bgsave
+select 5
+flushdb
+
+lpush uro:11011 rore:1
+lpush uro:11011 rore:2
+lpush uro:22022 rore:2
+lpush uro:33033 rore:3
+lpush uro:33033 rore:4
+lpush uro:33033 rore:5
+lpush uro:44044 rore:2
+lpush uro:44044 rore:4
+lpush uro:55055 rore:5
+lpush uro:66066 rore:6
+
+sadd rore:1 get:/welcome
+sadd rore:1 get:/welcome3
+sadd rore:2 get:/welcome3
+sadd rore:3 get:/welcome4
+sadd rore:4 get:/welcome3
+sadd rore:7 get:/welcome2
+
+sadd ure:11011 get:/welcome/*/welcome3
+sadd ure:22022 get:/welcome
+sadd ure:22022 get:/welcome2
+sadd ure:22022 get:/welcome3
+sadd ure:22022 get:/welcome4
+sadd ure:66066 get:/welcome2
+sadd ure:55055 get:/welcome2
+
+sadd ubl:22022 get:/welcome
+sadd ubl:22022 get:/welcome2
+
+
+

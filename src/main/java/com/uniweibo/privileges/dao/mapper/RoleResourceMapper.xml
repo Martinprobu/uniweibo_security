@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.uniweibo.privileges.dao.mapper.RoleResourceMapper">
+
+	<resultMap id="roleResourceResultMap" type="com.uniweibo.privileges.pojo.RoleResource">
+		<id property="id" column="id"/>
+		<result property="roId" column="ro_id"/>
+		<result property="reId" column="re_id"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="isDeleted" column="is_deleted"/>
+	</resultMap>
+
+	<insert id="insertRoleResource">
+		insert into role_resource (
+			ro_id,
+			re_id,
+			create_time,
+			update_time,
+			is_deleted
+		)
+		values (
+			#{roId},
+			#{reId},
+			#{createTime},
+			#{updateTime},
+			#{isDeleted}
+		)
+	</insert>
+
+	<update id="updateRoleResource">
+		update 
+			role_resource
+		set
+			ro_id = #{roId},
+			re_id = #{reId},
+			create_time = #{createTime},
+			update_time = #{updateTime},
+			is_deleted = #{isDeleted}
+		where
+			id = #{id}
+	</update>
+
+	<delete id="removeRoleResource">
+		delete from role_resource where id = #{id} 
+	</delete>
+
+	<select id="getRoleResource" resultMap="roleResourceResultMap">
+		select * from role_resource where id = #{id}
+	</select>
+
+	<select id="listRoleResource" resultMap="roleResourceResultMap">
+		select * from role_resource
+	</select>
+
+	<select id="pagingRoleResource" resultMap="roleResourceResultMap">
+		select * from role_resource limit #{offset}, #{number}
+	</select>
+
+	<select id="listRoleResourceCount" resultType="int">
+		select count(1) from role_resource
+	</select>
+
+
+</mapper>

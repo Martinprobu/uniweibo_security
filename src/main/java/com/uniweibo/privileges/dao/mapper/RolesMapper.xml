@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.uniweibo.privileges.dao.mapper.RolesMapper">
+
+	<resultMap id="rolesResultMap" type="com.uniweibo.privileges.pojo.Roles">
+		<id property="roId" column="ro_id"/>
+		<result property="name" column="name"/>
+		<result property="detail" column="detail"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="isDeleted" column="is_deleted"/>
+	</resultMap>
+
+	<insert id="insertRoles">
+		insert into roles (
+			name,
+			detail,
+			create_time,
+			update_time,
+			is_deleted
+		)
+		values (
+			#{name},
+			#{detail},
+			#{createTime},
+			#{updateTime},
+			#{isDeleted}
+		)
+	</insert>
+
+	<update id="updateRoles">
+		update 
+			roles
+		set
+			name = #{name},
+			detail = #{detail},
+			create_time = #{createTime},
+			update_time = #{updateTime},
+			is_deleted = #{isDeleted}
+		where
+			id = #{id}
+	</update>
+
+	<delete id="removeRoles">
+		delete from roles where id = #{id} 
+	</delete>
+
+	<select id="getRoles" resultMap="rolesResultMap">
+		select * from roles where id = #{id}
+	</select>
+
+	<select id="listRoles" resultMap="rolesResultMap">
+		select * from roles
+	</select>
+
+	<select id="pagingRoles" resultMap="rolesResultMap">
+		select * from roles limit #{offset}, #{number}
+	</select>
+
+	<select id="listRolesCount" resultType="int">
+		select count(1) from roles
+	</select>
+
+
+</mapper>

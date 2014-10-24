@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.uniweibo.privileges.dao.mapper.ResourcesMapper">
+
+	<resultMap id="resourcesResultMap" type="com.uniweibo.privileges.pojo.Resources">
+		<id property="reId" column="re_id"/>
+		<result property="url" column="url"/>
+		<result property="name" column="name"/>
+		<result property="type" column="type"/>
+		<result property="detail" column="detail"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="isDeleted" column="is_deleted"/>
+	</resultMap>
+
+	<insert id="insertResources">
+		insert into resources (
+			url,
+			name,
+			type,
+			detail,
+			create_time,
+			update_time,
+			is_deleted
+		)
+		values (
+			#{url},
+			#{name},
+			#{type},
+			#{detail},
+			#{createTime},
+			#{updateTime},
+			#{isDeleted}
+		)
+	</insert>
+
+	<update id="updateResources">
+		update 
+			resources
+		set
+			url = #{url},
+			name = #{name},
+			type = #{type},
+			detail = #{detail},
+			create_time = #{createTime},
+			update_time = #{updateTime},
+			is_deleted = #{isDeleted}
+		where
+			id = #{id}
+	</update>
+
+	<delete id="removeResources">
+		delete from resources where id = #{id} 
+	</delete>
+
+	<select id="getResources" resultMap="resourcesResultMap">
+		select * from resources where id = #{id}
+	</select>
+
+	<select id="listResources" resultMap="resourcesResultMap">
+		select * from resources
+	</select>
+
+	<select id="pagingResources" resultMap="resourcesResultMap">
+		select * from resources limit #{offset}, #{number}
+	</select>
+
+	<select id="listResourcesCount" resultType="int">
+		select count(1) from resources
+	</select>
+
+
+</mapper>
